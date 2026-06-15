@@ -56,6 +56,46 @@ def agregar_pais(lista_paises):#Función para que el usuario pueda agregar un nu
     lista_paises.append(nuevo_pais) #Agrega nuevo diccionario a la lista_paises
     print("Nuevo país agregado a la lista.")
     
+def actualizar_pais(lista_paises):
+    while True:
+        try:
+            nombre = input("Ingrese el nombre del país que desea buscar: \n").capitalize().strip()
+            if nombre == "": 
+                raise ValueError("El nombre no puede estar vacío")
+            break
+        except ValueError as e:
+            print(f"Error: {e}")
+    encontrado = False #declara bandera para verificar siel pais fue encontrada dentro de la lista y luego inicia ciclo for para recorrerla y buscarlo
+    for fila in lista_paises:
+        if nombre == fila['nombre'].capitalize().strip():
+            encontrado = True#si encuentra el pais dentro de la lista, cambia bandera a true, la guarda en una nueva variable y rompe el ciclo para que no siga buscando innecesariamente
+            pais_encontrado = fila
+            break
+    if encontrado: #si la bandera es True, pide datos para actualizar población y superficie
+        while True:
+            try:
+                superficie = input("Ingrese el nuevo valor de superficie: \n").strip()
+                if superficie == "":
+                        raise ValueError("El campo no puede estar vacío")
+                if superficie == '0':
+                    raise ValueError("Debe ingresar un número entero mayor a 0.")
+                if not superficie.isdigit(): 
+                    raise ValueError("Debe ingresar un número entero mayor a 0.")
+                superficie = int(superficie)
+                poblacion = input("Ingrese el nuevo valor de poblacion: \n").strip()
+                if poblacion == "":
+                        raise ValueError("El campo no puede estar vacío")
+                if poblacion == '0':
+                    raise ValueError("Debe ingresar un número entero mayor a 0.")
+                if not poblacion.isdigit(): 
+                    raise ValueError("Debe ingresar un número entero mayor a 0.")
+                poblacion = int(poblacion)
+                break
+            except ValueError as e:
+                print(f"Error: {e}")
+        pais_encontrado["superficie"] = superficie
+        pais_encontrado["poblacion"] = poblacion
+        print(f"Pais actualizado, nueva superficie: {pais_encontrado['superficie']}, nueva población: {pais_encontrado['poblacion']}")
+    else:#De lo contrario, muestra que el pais no está en la lista.
+                print("El pais no se encuentra en la lista.")
 
-     
-     
