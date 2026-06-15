@@ -17,8 +17,7 @@ def cargar_csv(nombre_archivo): #Función para leer el archivo csv y crear la li
             print("El archivo que intenta abrir no existe")
     except ValueError:
             print("Error de formato en el CSV")
-
-
+           
 def agregar_pais(lista_paises):#Función para que el usuario pueda agregar un nuevo país
     while True: #Inicia ciclo While para volver a pedir si es necesario
         try:#verificaciones para cada ingreso del usuario. Valida campos vacíos, tipo de dato correcto y convierte en entero a los datos de superficie y población
@@ -56,8 +55,7 @@ def agregar_pais(lista_paises):#Función para que el usuario pueda agregar un nu
     }
     lista_paises.append(nuevo_pais) #Agrega nuevo diccionario a la lista_paises
     print("Nuevo país agregado a la lista.")
-
-
+    
 
      
      
