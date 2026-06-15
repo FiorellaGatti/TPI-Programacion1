@@ -1,7 +1,10 @@
 import csv
+import os
 def cargar_csv(nombre_archivo): #Función para leer el archivo csv y crear la lista de diccionarios
+    base_dir = os.path.dirname(os.path.abspath(__file__)) #Obtenemos ruta al directorio del archivo siendo ejecutado (main.py)
+    ruta = os.path.join(base_dir, nombre_archivo) #Arma ruta hacia el archivo csv pasado por parámetro
     try:
-        with open(nombre_archivo, "r", encoding="utf-8") as archivo:#abre el archivo en modo reader            
+        with open(ruta, "r", encoding="utf-8") as archivo:#abre el archivo en modo reader            
             lector_archivo = csv.DictReader(archivo) #Con DictReader crea un diccionario con el contenido del csv
             lista_paises=[]
             for fila in lector_archivo:#itera con un for el diccionario creado
@@ -116,3 +119,23 @@ def buscar_pais(lista_paises):#Función para que el usuario busque un país en l
     if not encontrado:#De lo contrario, avisa que no se encontró
         print("El pais no se encuentra en la lista.")
 
+def filtrar_por_continente(lista, continente): #Retorna nueva lista filtrada de países según el continente pasado por parámetro
+    lista_filtrada = []
+    for pais in lista:
+        if pais["continente"] == continente:
+            lista_filtrada.append(pais)
+    return lista_filtrada
+
+def filtrar_por_rango(lista,dato,minimo,maximo): #Retorna nueva lista filtrada de países dentro de un rango evaluando el dato pasado por parámetro
+    """genera lista filtrada de países con el valor de dato dentro de rango(mínimo-máximo)
+       lista: lista a recorrer para ser filtrada
+       dato: key del diccionario de país a la cual evaluar
+       mínimo: valor mínimo del rango en el cual debe estar dentro el dato
+       máximo: valor máximo del rango en el cual debe estar dentro el dato"""
+    lista_filtrada = []
+    for pais in lista:
+        if pais[dato] >= minimo and pais[dato] <= maximo:
+            lista_filtrada.append(pais)
+    return lista_filtrada
+
+lista_paises = cargar_csv("paises.csv")
