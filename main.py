@@ -56,7 +56,7 @@ def agregar_pais(lista_paises):#Función para que el usuario pueda agregar un nu
     lista_paises.append(nuevo_pais) #Agrega nuevo diccionario a la lista_paises
     print("Nuevo país agregado a la lista.")
     
-def actualizar_pais(lista_paises):
+def actualizar_pais(lista_paises):#Función para que el usuario actualice población y superficie de un país
     while True:
         try:
             nombre = input("Ingrese el nombre del país que desea buscar: \n").capitalize().strip()
@@ -98,4 +98,21 @@ def actualizar_pais(lista_paises):
         print(f"Pais actualizado, nueva superficie: {pais_encontrado['superficie']}, nueva población: {pais_encontrado['poblacion']}")
     else:#De lo contrario, muestra que el pais no está en la lista.
                 print("El pais no se encuentra en la lista.")
+
+def buscar_pais(lista_paises):#Función para que el usuario busque un país en la lista
+    while True:
+        try:
+            nombre = input("Ingrese el nombre o parte del nombre del país que desea buscar: \n").capitalize().strip()
+            if nombre == "": 
+                raise ValueError("El nombre no puede estar vacío")
+            break
+        except ValueError as e:
+            print(f"Error: {e}")
+    encontrado = False #declara bandera para verificar si el país fue encontrada dentro de la lista y luego inicia ciclo for para recorrerla y buscarlo
+    for fila in lista_paises:
+        if nombre in fila['nombre'].capitalize().strip():#si encuentra coincidencia parcial o exacta, las muestra y cambia bandera a True
+            encontrado = True
+            print(f"Resultado de la búsqueda: {fila}")
+    if not encontrado:#De lo contrario, avisa que no se encontró
+        print("El pais no se encuentra en la lista.")
 
