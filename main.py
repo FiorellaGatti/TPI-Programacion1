@@ -159,4 +159,11 @@ def menor_poblacion(lista): #Retorna el nombre del país con menor poblacion en 
             poblacion_minima = lista[i]["poblacion"]
     return nombre_pais
 
+def promedio_poblacion(lista): #Retorna el promedio de población en los paises de la lista de dicts recibida por parámetro
+    acumulador = 0
+    for pais in lista:
+        acumulador += pais["poblacion"]
+    promedio = acumulador / len(lista)
+    return promedio
+
 lista_paises = cargar_csv("paises.csv")
