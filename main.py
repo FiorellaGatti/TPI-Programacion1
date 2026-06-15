@@ -138,13 +138,25 @@ def filtrar_por_rango(lista,dato,minimo,maximo): #Retorna nueva lista filtrada d
             lista_filtrada.append(pais)
     return lista_filtrada
 
-def mayor_poblacion(lista):
+def mayor_poblacion(lista): #Retorna el nombre del país con mayor poblacion en la lista de diccionarios
     nombre_pais = ""
-    poblacion = 0
+    poblacion_maxima = 0
     for pais in lista:
-        if pais["poblacion"] > poblacion:
+        if pais["poblacion"] > poblacion_maxima:
             nombre_pais = pais["nombre"]
-            poblacion = pais["poblacion"]
+            poblacion_maxima = pais["poblacion"]
+    return nombre_pais
+
+def menor_poblacion(lista): #Retorna el nombre del país con menor poblacion en la lista de diccionarios
+    nombre_pais = ""
+    poblacion_minima = 0
+    for i in range(len(lista)):
+        if i == 0:
+            nombre_pais = lista[i]["nombre"]
+            poblacion_minima = lista[i]["poblacion"]
+        elif lista[i]["poblacion"] < poblacion_minima:
+            nombre_pais = lista[i]["nombre"]
+            poblacion_minima = lista[i]["poblacion"]
     return nombre_pais
 
 lista_paises = cargar_csv("paises.csv")
