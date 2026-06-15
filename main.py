@@ -138,4 +138,13 @@ def filtrar_por_rango(lista,dato,minimo,maximo): #Retorna nueva lista filtrada d
             lista_filtrada.append(pais)
     return lista_filtrada
 
+def mayor_poblacion(lista):
+    nombre_pais = ""
+    poblacion = 0
+    for pais in lista:
+        if pais["poblacion"] > poblacion:
+            nombre_pais = pais["nombre"]
+            poblacion = pais["poblacion"]
+    return nombre_pais
+
 lista_paises = cargar_csv("paises.csv")
