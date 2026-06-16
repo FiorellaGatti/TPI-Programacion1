@@ -128,12 +128,12 @@ def menor_poblacion(lista): #Imprime por pantalla los datos del país con menor 
     print("\nPaís con menor población:")
     imprimir_datos_pais(menor)
 
-def promedio_dato(lista, dato): #Retorna el promedio del dato en los paises de la lista de dicts recibida por parámetro
+def promedio_dato(lista, dato): #Imprime por pantalla el promedio de dato en la lista
     acumulador = 0
     for pais in lista:
         acumulador += pais[dato]
     promedio = acumulador / len(lista)
-    return promedio
+    print(f"\nEl promedio de {dato} es : {promedio}")
 
 def paises_por_continente(lista):
     pass
