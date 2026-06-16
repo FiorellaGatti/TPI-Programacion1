@@ -135,13 +135,20 @@ def promedio_dato(lista, dato): #Imprime por pantalla el promedio de dato en la 
     promedio = acumulador / len(lista)
     print(f"\nEl promedio de {dato} es : {promedio}")
 
-def paises_por_continente(lista):
-    pass
+def paises_por_continente(lista): #Imprime por pantalla un listado con la cantidad de países correspondientes a cada continente
+    continentes = {}
+    for pais in lista:
+        if not pais["continente"] in continentes: #si el nombre del continente no existe como clave en el diccionario
+            continentes[pais["continente"]] = 0 #creamos la clave y la inicializamos en 0
+        continentes[pais["continente"]] += 1
+    print("\nCantidad de países por continente:")
+    for continente in continentes:
+        print(f"{continente}: {continentes[continente]}")
 
-def imprimir_datos_pais(diccionario_pais):
+def imprimir_datos_pais(diccionario_pais): #Imprime por pantalla los datos de el país pasado por parámetro
     print(f"Nombre: {diccionario_pais["nombre"]}  Población: {diccionario_pais["poblacion"]}  Superficie: {diccionario_pais["superficie"]} km2  Continente: {diccionario_pais["continente"]}")
 
-def pedir_nombre(mensaje):
+def pedir_nombre(mensaje): #Pide el ingreso de un nombre al usuario, lo normaliza, valída que no esté vacío y si cumple con los requisitos lo retorna, sinó lo vuelve a pedir hasta que se ingrese uno válido
     while True:
         try:
             nombre = input(mensaje).strip().capitalize()
@@ -153,7 +160,7 @@ def pedir_nombre(mensaje):
             break
     return nombre
 
-def pedir_entero_positivo(mensaje):
+def pedir_entero_positivo(mensaje): #Pide el ingreso de un número al usuario, valída que no esté vacío que sea un entero y que sea positivo, si cumple con requisitos lo convierte a entero y lo retorna, sinó lo vuelve a pedir hasta que se ingrese uno válido
     while True:
         try:
             numero = input(mensaje).strip()
