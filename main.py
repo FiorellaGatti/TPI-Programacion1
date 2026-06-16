@@ -80,7 +80,7 @@ def buscar_pais(lista_paises):#Función para que el usuario busque un país en l
     if not encontrado:#De lo contrario, avisa que no se encontró
         print("El pais no se encuentra en la lista.")
 
-def filtrar_por_continente(lista_paises): #Retorna nueva lista filtrada de países según el continente pasado por parámetro
+def filtrar_por_continente(lista_paises): #Imprime por pantalla los datos de los países que pertenezcan al continente que ingrese el usuario
     continente = pedir_nombre("Ingrese el continente por el cual desea filtrar: ")
     contador = 0
     print(f"\nPaíses ubicados en {continente}:")
@@ -91,7 +91,7 @@ def filtrar_por_continente(lista_paises): #Retorna nueva lista filtrada de país
     if contador == 0:
         print("No se encontraron resultados.")        
 
-def filtrar_por_rango(lista,dato): #Retorna nueva lista filtrada de países dentro de un rango evaluando el dato pasado por parámetro
+def filtrar_por_rango(lista,dato): #Imprime por pantalla los datos de los países en los cuales el valor evaluado se mantenga dentro del rango definido
     """lista: lista a recorrer para ser filtrada
        dato: key del diccionario de país a la cual evaluar"""
     try:
@@ -108,14 +108,14 @@ def filtrar_por_rango(lista,dato): #Retorna nueva lista filtrada de países dent
     if contador == 0:
         print("No se encontraron resultados.")  
 
-def mayor_poblacion(lista): #Retorna el nombre del país con mayor poblacion en la lista de diccionarios
-    nombre_pais = ""
+def mayor_poblacion(lista): #Imprime por pantalla los datos del país con mayor población en la lista
+    mayor = {}
     poblacion_maxima = 0
     for pais in lista:
         if pais["poblacion"] > poblacion_maxima:
-            nombre_pais = pais["nombre"]
+            mayor = pais
             poblacion_maxima = pais["poblacion"]
-    return nombre_pais
+    imprimir_datos_pais(mayor)
 
 def menor_poblacion(lista): #Retorna el nombre del país con menor poblacion en la lista de diccionarios
     nombre_pais = ""
@@ -140,7 +140,7 @@ def paises_por_continente(lista):
     pass
 
 def imprimir_datos_pais(diccionario_pais):
-    print(f"Nombre: {diccionario_pais["nombre"]}  Población: {diccionario_pais["poblacion"]}  Superficie: {diccionario_pais["superficie"]}  Continente: {diccionario_pais["continente"]}")
+    print(f"Nombre: {diccionario_pais["nombre"]}  Población: {diccionario_pais["poblacion"]}  Superficie: {diccionario_pais["superficie"]} km2  Continente: {diccionario_pais["continente"]}")
 
 def pedir_nombre(mensaje):
     while True:
@@ -169,4 +169,4 @@ def pedir_entero_positivo(mensaje):
     return int(numero)
 
 lista_paises = cargar_csv("paises.csv")
-filtrar_por_continente(lista_paises)
+mayor_poblacion(lista_paises)
