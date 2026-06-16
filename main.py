@@ -115,19 +115,18 @@ def mayor_poblacion(lista): #Imprime por pantalla los datos del país con mayor 
         if pais["poblacion"] > poblacion_maxima:
             mayor = pais
             poblacion_maxima = pais["poblacion"]
+    print("\nPaís con mayor población:")
     imprimir_datos_pais(mayor)
 
-def menor_poblacion(lista): #Retorna el nombre del país con menor poblacion en la lista de diccionarios
-    nombre_pais = ""
-    poblacion_minima = 0
+def menor_poblacion(lista): #Imprime por pantalla los datos del país con menor población en la lista
+    menor = {}
     for i in range(len(lista)):
-        if i == 0:
-            nombre_pais = lista[i]["nombre"]
-            poblacion_minima = lista[i]["poblacion"]
-        elif lista[i]["poblacion"] < poblacion_minima:
-            nombre_pais = lista[i]["nombre"]
-            poblacion_minima = lista[i]["poblacion"]
-    return nombre_pais
+        if i == 0: #en la primer iteración se guarda el primer diccionario para comparar a partir de la segunda iteración
+            menor = lista[i]
+        elif lista[i]["poblacion"] < menor["poblacion"]:
+            menor = lista[i]
+    print("\nPaís con menor población:")
+    imprimir_datos_pais(menor)
 
 def promedio_dato(lista, dato): #Retorna el promedio del dato en los paises de la lista de dicts recibida por parámetro
     acumulador = 0
@@ -169,4 +168,3 @@ def pedir_entero_positivo(mensaje):
     return int(numero)
 
 lista_paises = cargar_csv("paises.csv")
-mayor_poblacion(lista_paises)
