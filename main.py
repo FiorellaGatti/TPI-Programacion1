@@ -22,52 +22,32 @@ def cargar_csv(nombre_archivo): #Función para leer el archivo csv y crear la li
             print("Error de formato en el CSV")
            
 def agregar_pais(lista_paises):#Función para que el usuario pueda agregar un nuevo país
-    while True: #Inicia ciclo While para volver a pedir si es necesario
-        try:#verificaciones para cada ingreso del usuario. Valida campos vacíos, tipo de dato correcto y convierte en entero a los datos de superficie y población
-            nombre_pais = input("Ingrese el nombre del nuevo país: \n").capitalize().strip()
-            if nombre_pais == "": 
-                raise ValueError("El nombre no puede estar vacío")
-            poblacion = input("Ingrese el número de la población de ese país: \n").strip()
-            if poblacion == "":
-                raise ValueError("El campo no puede estar vacío")
-            if not poblacion.isdigit(): 
-                raise ValueError("Debe ingresar un número entero mayor a 0.")
-            if poblacion == '0':
-                    raise ValueError("Debe ingresar un número entero mayor a 0.")
-            poblacion = int(poblacion)
-            superficie = input("Ingrese el número de la superficie de ese país: \n").strip()
-            if superficie == "":
-                raise ValueError("El campo no puede estar vacío")
-            if superficie == '0':
-                    raise ValueError("Debe ingresar un número entero mayor a 0.")
-            if not superficie.isdigit(): 
-                raise ValueError("Debe ingresar un número entero mayor a 0.")
-            superficie = int(superficie)
-            continente = input("Ingrese el continente del nuevo país: \n").capitalize().strip()
-            if continente == "":
-                raise ValueError("El nombre no puede estar vacío")
-            break
-        except ValueError as e:
-            print(f"Error: {e}")
-    nuevo_pais = { #Crea diccionario del nuevo país con los datos ingresados por el usuario
-           
-        "nombre":nombre_pais,
-        "poblacion":poblacion,
-        "superficie":superficie,
-        "continente":continente
-    }
-    lista_paises.append(nuevo_pais) #Agrega nuevo diccionario a la lista_paises
-    print("Nuevo país agregado a la lista.")
+    """ Pedimos y validamos:
+        -Nombres para: País, Continente.
+        -Cantidades para: Población, Superficie"""
+    try:
+        nombre_pais = pedir_nombre("Ingrese el nombre del nuevo país: \n")
+        poblacion = pedir_entero_positivo("Ingrese el número de la población de ese país: \n")
+        superficie = pedir_entero_positivo("Ingrese el número de la superficie de ese país: \n")
+        continente = pedir_nombre("Ingrese el continente del nuevo país: \n")
+    except ValueError as e:
+        print(f"Error: {e}")
+    else:
+        nuevo_pais = { #Crea diccionario del nuevo país con los datos ingresados por el usuario
+            
+            "nombre":nombre_pais,
+            "poblacion":poblacion,
+            "superficie":superficie,
+            "continente":continente
+        }
+        lista_paises.append(nuevo_pais) #Agrega nuevo diccionario a la lista_paises
+        print("Nuevo país agregado a la lista.")
     
 def actualizar_pais(lista_paises):#Función para que el usuario actualice población y superficie de un país
-    while True:
-        try:
-            nombre = input("Ingrese el nombre del país que desea buscar: \n").capitalize().strip()
-            if nombre == "": 
-                raise ValueError("El nombre no puede estar vacío")
-            break
-        except ValueError as e:
-            print(f"Error: {e}")
+    try:
+        nombre = pedir_nombre("Ingrese el nombre del país que desea buscar: \n")
+    except ValueError as e:
+        print(f"Error: {e}")
     encontrado = False #declara bandera para verificar siel pais fue encontrada dentro de la lista y luego inicia ciclo for para recorrerla y buscarlo
     for fila in lista_paises:
         if nombre == fila['nombre'].capitalize().strip():
@@ -75,32 +55,16 @@ def actualizar_pais(lista_paises):#Función para que el usuario actualice poblac
             pais_encontrado = fila
             break
     if encontrado: #si la bandera es True, pide datos para actualizar población y superficie
-        while True:
-            try:
-                superficie = input("Ingrese el nuevo valor de superficie: \n").strip()
-                if superficie == "":
-                        raise ValueError("El campo no puede estar vacío")
-                if superficie == '0':
-                    raise ValueError("Debe ingresar un número entero mayor a 0.")
-                if not superficie.isdigit(): 
-                    raise ValueError("Debe ingresar un número entero mayor a 0.")
-                superficie = int(superficie)
-                poblacion = input("Ingrese el nuevo valor de poblacion: \n").strip()
-                if poblacion == "":
-                        raise ValueError("El campo no puede estar vacío")
-                if poblacion == '0':
-                    raise ValueError("Debe ingresar un número entero mayor a 0.")
-                if not poblacion.isdigit(): 
-                    raise ValueError("Debe ingresar un número entero mayor a 0.")
-                poblacion = int(poblacion)
-                break
-            except ValueError as e:
-                print(f"Error: {e}")
+        try:
+            superficie = pedir_entero_positivo("Ingrese el nuevo valor de superficie: \n")
+            poblacion = pedir_entero_positivo("Ingrese el nuevo valor de poblacion: \n")
+        except ValueError as e:
+            print(f"Error: {e}")
         pais_encontrado["superficie"] = superficie
         pais_encontrado["poblacion"] = poblacion
         print(f"Pais actualizado, nueva superficie: {pais_encontrado['superficie']}, nueva población: {pais_encontrado['poblacion']}")
     else:#De lo contrario, muestra que el pais no está en la lista.
-                print("El pais no se encuentra en la lista.")
+        print("El pais no se encuentra en la lista.")
 
 def buscar_pais(lista_paises):#Función para que el usuario busque un país en la lista
     while True:
@@ -119,19 +83,29 @@ def buscar_pais(lista_paises):#Función para que el usuario busque un país en l
     if not encontrado:#De lo contrario, avisa que no se encontró
         print("El pais no se encuentra en la lista.")
 
-def filtrar_por_continente(lista, continente): #Retorna nueva lista filtrada de países según el continente pasado por parámetro
-    lista_filtrada = []
-    for pais in lista:
+def filtrar_por_continente(lista_paises): #Retorna nueva lista filtrada de países según el continente pasado por parámetro
+    continente = pedir_nombre("Ingrese el continente por el cual desea filtrar: ")
+    contador = 0
+    print(f"\nPaíses ubicados en {continente}:")
+    for pais in lista_paises:
         if pais["continente"] == continente:
-            lista_filtrada.append(pais)
-    return lista_filtrada
+            imprimir_datos_pais(pais)
+            contador += 1
+    if contador == 0:
+        print("No se encontraron resultados.")        
 
-def filtrar_por_rango(lista,dato,minimo,maximo): #Retorna nueva lista filtrada de países dentro de un rango evaluando el dato pasado por parámetro
+def filtrar_por_rango(lista,dato): #Retorna nueva lista filtrada de países dentro de un rango evaluando el dato pasado por parámetro
     """genera lista filtrada de países con el valor de dato dentro de rango(mínimo-máximo)
        lista: lista a recorrer para ser filtrada
-       dato: key del diccionario de país a la cual evaluar
-       mínimo: valor mínimo del rango en el cual debe estar dentro el dato
-       máximo: valor máximo del rango en el cual debe estar dentro el dato"""
+       dato: key del diccionario de país a la cual evaluar"""
+    minimo = 0
+    while True:
+        try:
+            minimo = input(f"Ingrese la cantidad mínima de {dato}: ")
+            if not minimo.isdigit():
+                raise ValueError("Solo se permiten números enteros positivos.")
+        except ValueError:
+            pass
     lista_filtrada = []
     for pais in lista:
         if pais[dato] >= minimo and pais[dato] <= maximo:
@@ -166,4 +140,37 @@ def promedio_dato(lista, dato): #Retorna el promedio del dato en los paises de l
     promedio = acumulador / len(lista)
     return promedio
 
+def paises_por_continente(lista):
+    pass
+
+def imprimir_datos_pais(diccionario_pais):
+    print(f"Nombre: {diccionario_pais["nombre"]}  Población: {diccionario_pais["poblacion"]}  Superficie: {diccionario_pais["superficie"]}  Continente: {diccionario_pais["continente"]}")
+
+def pedir_nombre(mensaje):
+    while True:
+        try:
+            nombre = input(mensaje).strip().capitalize()
+            if nombre == "":
+                raise ValueError("el nombre ingresado no puede estar vacío, intente nuevamente.")
+        except ValueError as e:
+            print(f"Error: {e}")
+        else:
+            break
+    return nombre
+
+def pedir_entero_positivo(mensaje):
+    while True:
+        try:
+            numero = input(mensaje).strip()
+            if numero == "":
+                raise ValueError("el campo no puede estar vacío, intente nuevamente.")
+            if not numero.isdigit():
+                raise ValueError("debe ingresar un número entero positivo, intente nuevamente.")
+        except ValueError as e:
+            print(f"Error: {e}")
+        else:
+            break
+    return int(numero)
+
 lista_paises = cargar_csv("paises.csv")
+filtrar_por_continente(lista_paises)
