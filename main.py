@@ -92,22 +92,21 @@ def filtrar_por_continente(lista_paises): #Retorna nueva lista filtrada de país
         print("No se encontraron resultados.")        
 
 def filtrar_por_rango(lista,dato): #Retorna nueva lista filtrada de países dentro de un rango evaluando el dato pasado por parámetro
-    """genera lista filtrada de países con el valor de dato dentro de rango(mínimo-máximo)
-       lista: lista a recorrer para ser filtrada
+    """lista: lista a recorrer para ser filtrada
        dato: key del diccionario de país a la cual evaluar"""
-    minimo = 0
-    while True:
-        try:
-            minimo = input(f"Ingrese la cantidad mínima de {dato}: ")
-            if not minimo.isdigit():
-                raise ValueError("Solo se permiten números enteros positivos.")
-        except ValueError:
-            pass
-    lista_filtrada = []
+    try:
+        minimo = pedir_entero_positivo(f"Ingrese la cantidad mínima de {dato}: ")
+        maximo = pedir_entero_positivo(f"Ingrese la cantidad máxima de {dato}: ")
+    except ValueError as e:
+        print(f"Error: {e}")
+    contador = 0
+    print(f"\nPaíses con {dato} entre {minimo} y {maximo}:")
     for pais in lista:
         if pais[dato] >= minimo and pais[dato] <= maximo:
-            lista_filtrada.append(pais)
-    return lista_filtrada
+            imprimir_datos_pais(pais)
+            contador += 1
+    if contador == 0:
+        print("No se encontraron resultados.")  
 
 def mayor_poblacion(lista): #Retorna el nombre del país con mayor poblacion en la lista de diccionarios
     nombre_pais = ""
