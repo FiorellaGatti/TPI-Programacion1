@@ -20,7 +20,22 @@ def cargar_csv(nombre_archivo): #Función para leer el archivo csv y crear la li
             print("El archivo que intenta abrir no existe")
     except ValueError:
             print("Error de formato en el CSV")
-           
+
+def mostrar_menu(): #Función que muestra el menú de opciones
+    print("\n" + "="*40)
+    print("   MENÚ DE OPCIONES")
+    print("="*40)
+    print(" 1. Agregar un país.")
+    print(" 2. Actualizar datos de un país.")
+    print(" 3. Buscar un país por nombre.")
+    print(" 4. Filtrar por continente.")
+    print(" 5. Filtrar por rango de población.")
+    print(" 6. Filtrar por rango de superficie.")
+    print(" 7. Ordenar países.")
+    print(" 8. Mostrar estadísticas.")
+    print(" 9. Salir.")
+    print("-" * 40)
+
 def agregar_pais(lista_paises):#Función para que el usuario pueda agregar un nuevo país
     """ Pedimos y validamos:
         -Nombres para: País, Continente.
@@ -174,4 +189,24 @@ def pedir_entero_positivo(mensaje): #Pide el ingreso de un número al usuario, v
             break
     return int(numero)
 
+def ordenar_paises(lista_paises, criterio, ascendente):#funcion que ordena la lista por nombres, población, o superficie y además en criterio ascendente o descendente 
+    for i in range(len(lista_paises)):#ciclo anidado para aplicar metodo selection sort y ordenar la lista de manera ascendente 
+        indice_minimo = i
+        for j in range(i + 1, len(lista_paises)):
+            if lista_paises[j][criterio] < lista_paises[indice_minimo][criterio]:#si el índice del criterio elegido por el usuario es menor al próximo índice, se guarda en indice_minimo
+                indice_minimo = j
+        if indice_minimo != i:
+            lista_paises[i], lista_paises[indice_minimo] = lista_paises[indice_minimo], lista_paises[i]
+    if not ascendente:#muestra la lista de manera descendente en el caso de que ascendente sea False
+        lista_paises.reverse()
+    print(F"\nLista de países ordenados por {criterio}\n")
+    for pais in lista_paises:
+        imprimir_datos_pais(pais)
+
+def main():
+    pass
+
+
 lista_paises = cargar_csv("paises.csv")
+paises = cargar_csv("paises.csv")
+ordenar_paises(paises, "nombre", False)
