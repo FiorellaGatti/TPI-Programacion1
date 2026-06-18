@@ -238,7 +238,7 @@ def pedir_opcion(opciones_validas): #Función para pedir ingreso de opciones al 
             print("Error: debe ingresar un número dentro del rango de las opciones. Intente nuevamente.")
     return opcion
 
-def mostrar_estadisticas(lista_paises):
+def mostrar_estadisticas(lista_paises):#Pide una opción al usuario y llama a la función correspondiente
     print("INGRESE EL NÚMERO CORRESPONDIENTE A LA ESTADÍSTICA QUE DESEA CONSULTAR:\n1- MAYOR POBLACIÓN\n2- MENOR POBLACIÓN\n3- PROMEDIOS\n4- PAISES POR CONTINENTE")
     opcion = pedir_opcion(range(1, 5))
     if opcion == 1:
@@ -253,7 +253,7 @@ def mostrar_estadisticas(lista_paises):
 def imprimir_datos_pais(diccionario_pais): #Imprime por pantalla los datos de el país pasado por parámetro
     print(f"Nombre: {diccionario_pais["nombre"]}  Población: {diccionario_pais["poblacion"]}  Superficie: {diccionario_pais["superficie"]} km2  Continente: {diccionario_pais["continente"]}")
 
-def ciclo_de_busqueda(lista_paises, nombre):
+def ciclo_de_busqueda(lista_paises, nombre):#Busca un país en la lista, si está lo retorna, sino retorna False
     for fila in lista_paises:
         if nombre in fila['nombre'].capitalize().strip():#si encuentra coincidencia parcial o exacta, las muestra y cambia bandera a True
             return fila
