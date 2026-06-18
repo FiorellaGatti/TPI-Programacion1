@@ -46,5 +46,5 @@ Nombre: China  Población: 1412600000  Superficie: 9596960 km2  Continente: Asia
 Nombre: India  Población: 1380004385  Superficie: 3287263 km2  Continente: Asia
 
 ## Links
-- 📹 Video demostrativo: *(agregar link)*
-- 📄 Documentación PDF: subido al repositorio
+- 📹 Video demostrativo: https://youtu.be/3KGg47S-IKc
+- 📄 Documentación PDF: https://drive.google.com/file/d/1hL3_NiP-9_-kPfyrOUd_Z1a3_iXWtj5J/view?usp=sharing
