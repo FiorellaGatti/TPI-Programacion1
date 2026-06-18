@@ -72,7 +72,7 @@ def filtrar_por_continente(lista_paises): #Imprime por pantalla los datos de los
         print("No se encontraron resultados.")        
 
 def filtrar_por_rango(lista_paises): #Imprime por pantalla los datos de los países en los cuales el valor evaluado se mantenga dentro del rango definido
-    print("ORDENAR POR:\n1- POBLACIÓN\n2- SUPERFICIE\n")
+    print("FILTRAR POR:\n1- POBLACIÓN\n2- SUPERFICIE\n")
     opcion = pedir_opcion(range(1, 3))    
     if opcion == 1:
         dato = 'poblacion' #dato: key del diccionario de país a la cual evaluar
